@@ -1,3 +1,4 @@
-whispy-player
+# Train to master phaser 
 
-!!! Un fix de phaser.comments.d.ts est présent. Il doit remplacer celui présent dans le module "phaser" de node_modules. !!!
+I use the inital tutorial / course of phaser, and I implemented some new features. 
+To extend my knowledge in this framework.
