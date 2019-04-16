@@ -34,6 +34,7 @@ export default class Preloader extends Phaser.State {
     await this.game.load.spritesheet("baddie", '../src/assets/images/baddie.png', 32, 48);
     await this.game.load.image('sky', '../src/assets/images/sky.png');
     await this.game.load.image('ground', '../src/assets/images/platform.png');
+    await this.game.load.image('diamond', '../src/assets/images/diamond.png');
     await this.game.load.image('star', '../src/assets/images/star.png');
     await this.game.load.image('button', '../src/assets/images/button.png');
     

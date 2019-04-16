@@ -16,6 +16,7 @@ export default class Story extends Phaser.State {
   mountainsBack: any;
   mountainsMid1: any;
   mountainsMid2: any;
+  diamond: any;
 
   // Environment
   platforms: any;
@@ -102,6 +103,9 @@ export default class Story extends Phaser.State {
     // * Timer
     this.createTimer();
 
+    // * Diamond 
+    this.createDiamond();
+
     // * Sound
     this.sound = this.game.add.audio('ding');
   }
@@ -132,8 +136,10 @@ export default class Story extends Phaser.State {
     }
 
     this.game.physics.arcade.collide(this.stars, this.platforms);
+    this.game.physics.arcade.collide(this.diamond, this.platforms);
     this.game.physics.arcade.overlap(this.player, this.stars, this.collectStar, undefined, this);
     this.game.physics.arcade.overlap(this.player, this.baddie, this.killPlayer, undefined, this);
+    this.game.physics.arcade.overlap(this.player, this.diamond, this.collectDiamond, undefined, this);
   }
 
   /**
@@ -320,6 +326,39 @@ export default class Story extends Phaser.State {
       this.scoreText.text = "Score : " + this.score;
 
       this.createStar(Math.random() * this.game.world.width);
+    }
+  }
+
+  /**
+   * Function to create Diamond
+   *
+   * @memberof Story
+   */
+  createDiamond() {
+    this.diamond = this.game.add.sprite(Math.random() * this.game.world.width , 1300, 'diamond');
+    this.game.physics.arcade.enable(this.diamond);
+
+    this.diamond.body.gravity.y = 80;
+    this.diamond.body.bounce.y = 0.2 + Math.random() * 0.2;
+  }
+
+  /**
+   * *  Function to collect diamond
+   * @param {*} player
+   * @param {*} star
+   * @memberof Story
+   */
+  collectDiamond(player: any, diamond: any) {
+    if (player && diamond && !this.isEnd) {
+      // this.sound.play();
+      diamond.kill();
+
+      this.timer += 10;
+      this.game.time.events.remove(this.time);
+      this.time = this.game.time.events.loop(Phaser.Timer.SECOND * this.timer, this.endgame, this);
+      this.timerText.text = "Remaining : " + this.timer;
+      
+      this.createDiamond();
     }
   }
 
