@@ -54,12 +54,10 @@ export default class Boot extends Phaser.State {
     /** 
      * Partie platform / env
      */
-    this.game.world.setBounds(0, 0, 1400, 1200);
+    this.game.world.setBounds(0, 0, 1400, 1200); 
+    this.game.physics.startSystem(Phaser.Physics.ARCADE); // moteur 
 
-    this.game.physics.startSystem(Phaser.Physics.ARCADE);
-    // this.game.add.tileSprite(0, 0, 1400, 1200, 'sky');
-    // let background = this.game.stage.backgroundColor = "#697e96";
-
+    // * Background gradient same as Story
     let background = this.game.add.bitmapData(this.game.width, this.game.height);
     let grd = background.context.createLinearGradient(0, 0, 0, 500);
     grd.addColorStop(0, "#FB7BA2");
@@ -68,6 +66,16 @@ export default class Boot extends Phaser.State {
     background.context.fillRect(0, 0, this.game.width, this.game.height);
     this.game.add.sprite(0, 0, background);
 
+    this.getParallaxMountain();
+
+    this.game.add.text(200, 100, "Title of this Game", {fontSize: "50px", color: "#fff"});
+    this.game.add.text(350, 225, "Play !!", {fontSize: "50px", color: "#fff"});
+    let btn = this.game.add.button(370, 300, 'button', this.actionPlay, this);
+    btn.width = 70;
+    btn.height = 70;
+  }
+
+  getParallaxMountain() {
     this.mountainsBack = this.game.add.tileSprite(0,
       this.game.height - this.game.cache.getImage('mountains-back').height, 
       this.game.width,
@@ -94,12 +102,6 @@ export default class Boot extends Phaser.State {
     );
     this.mountainsMid2.fixedToCamera = true;
     this.mountainsMid2.cameraOffset.setTo(0, this.game.height - this.game.cache.getImage('mountains-mid2').height + 200 );
-
-    this.game.add.text(200, 100, "Title of this Game", {fontSize: "50px", color: "#fff"});
-    this.game.add.text(350, 225, "Play !!", {fontSize: "50px", color: "#fff"});
-    let btn = this.game.add.button(370, 300, 'button', this.actionPlay, this);
-    btn.width = 70;
-    btn.height = 70;
   }
 
   actionPlay() {

@@ -43,7 +43,15 @@ export default class Preloader extends Phaser.State {
 
   }
 
-
+  /**
+   * Function to check if all file is loaded
+   * @param {number} progress
+   * @param {*} cacheKey
+   * @param {*} success
+   * @param {number} totalLoaded
+   * @param {number} totalFiles
+   * @memberof Preloader
+   */
   fileComplete( progress: number, cacheKey: any, success: any, totalLoaded: number, totalFiles: number) {
     console.log(" ♻️ FilesComplete === ", progress, "%");
 
